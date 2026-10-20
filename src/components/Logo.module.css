@@ -1,0 +1,53 @@
+.logo {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.wordmark {
+  position: relative;
+  display: inline-flex;
+  align-items: flex-start;
+  color: var(--lime);
+  line-height: 0.9;
+  transform: rotate(-5deg);
+  transform-origin: left bottom;
+  text-shadow: 3px 3px 0 #0b0c0d;
+}
+
+.wordmark sup {
+  font-size: 0.25em;
+  color: var(--offwhite);
+  margin-left: 2px;
+}
+
+.crown {
+  position: absolute;
+  top: -0.5em;
+  left: -0.12em;
+  transform: rotate(-14deg);
+}
+
+.sm .wordmark {
+  font-size: 28px;
+}
+.md .wordmark {
+  font-size: 44px;
+}
+.lg .wordmark {
+  font-size: clamp(56px, 16vw, 84px);
+}
+
+.tagline {
+  color: var(--offwhite);
+  text-transform: uppercase;
+  font-size: 18px;
+  line-height: 1.05;
+  transform: rotate(-5deg);
+  transform-origin: left top;
+  margin-top: var(--space-2);
+}
+
+.lg .tagline {
+  font-size: clamp(18px, 5vw, 24px);
+}

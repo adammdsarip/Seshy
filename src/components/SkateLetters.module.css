@@ -1,0 +1,30 @@
+.row {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.box {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 26px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-faint);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+}
+
+.on {
+  color: var(--on-accent);
+  background: var(--orange);
+  border-color: var(--orange);
+}
+
+.compact .box {
+  width: 18px;
+  height: 20px;
+  font-size: 10px;
+  border-radius: 4px;
+}

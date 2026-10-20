@@ -1,0 +1,146 @@
+.fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.legend {
+  padding: 0;
+  margin-bottom: var(--space-3);
+  font-size: 21px;
+}
+
+.options {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: 84px;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  color: var(--on-accent);
+  cursor: pointer;
+  border: 3px solid transparent;
+  opacity: 0.72;
+  transition: opacity 120ms ease;
+}
+
+.option:hover {
+  opacity: 0.9;
+}
+
+.skate-dice {
+  background: var(--orange);
+}
+.skate {
+  background: var(--purple);
+}
+
+.selected,
+.selected:hover {
+  opacity: 1;
+  border-color: var(--offwhite);
+  box-shadow: var(--shadow-sticker);
+}
+
+.option:has(input:focus-visible) {
+  box-shadow: var(--focus-ring);
+}
+
+.optionText {
+  display: flex;
+  flex-direction: column;
+}
+
+.optionTitle {
+  font-size: 21px;
+}
+
+.optionSub {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.rules {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.rulesTitle {
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: var(--space-2);
+}
+
+.rules ol {
+  margin: 0;
+  padding-left: 1.3em;
+  display: grid;
+  gap: 6px;
+  color: var(--text-muted);
+}
+
+.rules li::marker {
+  color: var(--lime);
+  font-weight: 800;
+}
+
+.modes {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.mode {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 72px;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px dashed var(--line-strong);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.mode strong {
+  color: var(--text);
+}
+
+.soon {
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--purple);
+  border: 1px solid var(--purple);
+  white-space: nowrap;
+}
+
+.note {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius);
+  background: rgba(175, 160, 255, 0.08);
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.note svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--purple);
+}

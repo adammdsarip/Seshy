@@ -1,0 +1,22 @@
+.count {
+  margin-bottom: var(--space-2);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-1);
+  padding: var(--space-2);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+@media (min-width: 900px) {
+  .list {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: var(--space-3);
+  }
+}

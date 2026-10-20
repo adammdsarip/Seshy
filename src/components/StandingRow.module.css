@@ -1,0 +1,98 @@
+.row {
+  display: grid;
+  grid-template-columns: 32px auto 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 68px;
+  padding: var(--space-3);
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.me {
+  background: var(--surface-2);
+}
+
+.turn {
+  border-color: var(--lime);
+}
+
+.out {
+  opacity: 0.55;
+}
+
+.rank {
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  color: var(--text-muted);
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.name {
+  font-weight: 800;
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.turnNote {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--lime);
+}
+
+.turnDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lime);
+}
+
+.outNote {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--orange);
+  text-transform: uppercase;
+}
+
+.progress {
+  justify-self: end;
+}
+
+.points {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1;
+}
+
+.pointsValue {
+  font-size: 28px;
+  color: var(--orange);
+}
+
+.pointsUnit {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+@media (max-width: 359px) {
+  .row {
+    grid-template-columns: 24px auto 1fr;
+  }
+  .progress {
+    grid-column: 2 / -1;
+    justify-self: start;
+  }
+}

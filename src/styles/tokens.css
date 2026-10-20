@@ -1,0 +1,59 @@
+/* Seshy design tokens. Brand palette first, then derived UI values. */
+:root {
+  /* Brand */
+  --asphalt: #17191c;
+  --lime: #d6ff55;
+  --orange: #ff795d;
+  --purple: #afa0ff;
+  --offwhite: #f5f2e9;
+  --grey: #62676d;
+
+  /* Surfaces */
+  --bg: var(--asphalt);
+  --surface: #202328;
+  --surface-2: #2a2e34;
+  --surface-3: #33383f;
+  --nav-bg: #111315;
+  --line: rgba(245, 242, 233, 0.08);
+  --line-strong: rgba(245, 242, 233, 0.16);
+
+  /* Text — muted text is lighter than --grey so it passes WCAG AA on dark surfaces. */
+  --text: var(--offwhite);
+  --text-muted: #a7acb2;
+  --text-faint: #80858b;
+  --on-accent: var(--asphalt);
+
+  /* Type */
+  --font-ui: 'Archivo Variable', 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-marker: 'Permanent Marker', 'Marker Felt', 'Comic Sans MS', cursive;
+  --stretch-condensed: 72%;
+
+  /* Spacing (4px grid) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  --tap: 44px; /* minimum touch target */
+  --nav-height: 68px;
+  --rail-width: 96px;
+  --gutter: 16px;
+  --content-max: 1040px;
+
+  --shadow-sticker: 0 3px 0 rgba(0, 0, 0, 0.35);
+  --focus-ring: 0 0 0 3px var(--asphalt), 0 0 0 5px var(--lime);
+}
+
+@media (min-width: 600px) {
+  :root {
+    --gutter: 24px;
+  }
+}

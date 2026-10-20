@@ -1,0 +1,41 @@
+.tabs {
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  gap: 4px;
+  padding: 4px;
+  margin-bottom: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+}
+
+.tab {
+  display: grid;
+  place-items: center;
+  min-height: var(--tap);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.tab:hover {
+  color: var(--text);
+}
+
+.active,
+.active:hover {
+  background: var(--lime);
+  color: var(--on-accent);
+}
+
+.button {
+  border: 0;
+  cursor: pointer;
+}
+
+.button:not(.active) {
+  background: none;
+}

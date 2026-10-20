@@ -1,0 +1,188 @@
+.standings {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.facts {
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: var(--line);
+}
+
+.facts > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface);
+}
+
+.facts dt {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.facts dd {
+  margin: 0;
+  font-weight: 800;
+  text-align: right;
+}
+
+/* Friends ranking */
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-3);
+}
+
+.select {
+  min-height: var(--tap);
+  padding: 0 36px 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line-strong);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23F5F2E9' stroke-width='2' fill='none'/%3E%3C/svg%3E")
+      no-repeat right 14px center,
+    var(--surface);
+  appearance: none;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.rule {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.table th {
+  padding: var(--space-3) var(--space-2);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+
+.table th:first-child,
+.table td:first-child {
+  padding-left: var(--space-4);
+}
+
+.table th:last-child,
+.table td:last-child {
+  padding-right: var(--space-4);
+}
+
+.table abbr {
+  text-decoration: none;
+}
+
+.table td {
+  padding: var(--space-3) var(--space-2);
+  border-bottom: 1px solid var(--line);
+  font-variant-numeric: tabular-nums;
+}
+
+.table tr:last-child td {
+  border-bottom: 0;
+}
+
+.meRow td {
+  background: var(--surface-2);
+}
+
+.num {
+  text-align: right !important;
+  white-space: nowrap;
+}
+
+.rankCell {
+  width: 44px;
+  font-size: 22px;
+  color: var(--text-muted);
+}
+
+.skater {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.skaterText {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.skaterName {
+  font-weight: 800;
+}
+
+.bar {
+  display: block;
+  height: 5px;
+  max-width: 120px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-3);
+  overflow: hidden;
+}
+
+.bar > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.rate {
+  font-weight: 800;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: var(--space-4) var(--space-2);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  text-align: center;
+}
+
+.stat svg {
+  color: var(--lime);
+}
+
+.statLabel {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.statValue {
+  font-size: 28px;
+  line-height: 1;
+}
