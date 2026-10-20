@@ -1,0 +1,93 @@
+.orange {
+  background: var(--orange);
+}
+.purple {
+  background: var(--purple);
+}
+
+.thumb {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.thumbSplat {
+  position: absolute;
+  inset: auto -30% -30% auto;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  color: var(--on-accent);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sticker);
+  transition: transform 140ms ease;
+}
+
+.card:hover {
+  transform: translateY(-2px) rotate(-0.4deg);
+}
+
+.cardSplat {
+  position: absolute;
+  right: -36px;
+  bottom: -40px;
+  pointer-events: none;
+}
+
+.cardText {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cardTitle {
+  font-size: 22px;
+  line-height: 1.05;
+}
+
+.cardTagline {
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.tile {
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 150px;
+  padding: var(--space-4);
+}
+
+.tile .cardIcon {
+  position: relative;
+}
+
+.wide {
+  align-items: center;
+  gap: var(--space-4);
+  min-height: 88px;
+  padding: var(--space-4);
+}
+
+.wide .cardText {
+  flex: 1;
+}
+
+.arrow {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--asphalt);
+  color: var(--offwhite);
+}

@@ -1,0 +1,75 @@
+.games {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.currentLink {
+  display: block;
+  border-radius: var(--radius-lg);
+}
+
+.currentLink:hover > div {
+  background: var(--surface-2);
+}
+
+.leaderLine {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+  font-weight: 700;
+  color: var(--lime);
+}
+
+.noMatch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--line-strong);
+  color: var(--text-muted);
+}
+
+.inlineLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  font-weight: 800;
+  color: var(--lime);
+}
+
+.quick {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+}
+
+.quickItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 88px;
+  padding: var(--space-3) var(--space-2);
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.quickItem svg {
+  color: var(--lime);
+}
+
+.quickItem:hover {
+  background: var(--surface-2);
+}

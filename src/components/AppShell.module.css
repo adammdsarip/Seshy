@@ -1,0 +1,62 @@
+.shell {
+  min-height: 100dvh;
+}
+
+.main {
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-3) var(--gutter) calc(var(--nav-height) + env(safe-area-inset-bottom) + var(--space-6));
+}
+
+.skip {
+  position: absolute;
+  left: var(--space-3);
+  top: -60px;
+  z-index: 50;
+  padding: var(--space-2) var(--space-3);
+  background: var(--lime);
+  color: var(--on-accent);
+  font-weight: 800;
+  border-radius: var(--radius-sm);
+}
+
+.skip:focus {
+  top: var(--space-3);
+}
+
+.sampleBanner {
+  padding: 6px var(--gutter);
+  padding-top: calc(6px + env(safe-area-inset-top));
+  font-size: 12px;
+  text-align: center;
+  color: var(--purple);
+  background: rgba(175, 160, 255, 0.08);
+  border-bottom: 1px dashed rgba(175, 160, 255, 0.35);
+}
+
+.railLogo {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .shell {
+    padding-left: var(--rail-width);
+  }
+
+  .main {
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-7);
+  }
+
+  .railLogo {
+    position: fixed;
+    z-index: 21;
+    top: 36px;
+    left: 0;
+    width: var(--rail-width);
+    display: grid;
+    place-items: center;
+    transform: scale(0.8);
+  }
+}

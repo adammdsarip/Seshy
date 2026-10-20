@@ -1,0 +1,50 @@
+.card {
+  position: relative;
+  padding: var(--space-5) var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--line-strong);
+  background: var(--surface);
+}
+
+.stamp {
+  position: absolute;
+  top: -12px;
+  right: var(--space-4);
+  padding: 3px 10px;
+  font-size: 14px;
+  text-transform: uppercase;
+  background: var(--purple);
+  color: var(--on-accent);
+  border-radius: 4px;
+  transform: rotate(4deg);
+  box-shadow: var(--shadow-sticker);
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: var(--space-2);
+}
+
+.body {
+  color: var(--text-muted);
+  max-width: 52ch;
+}
+
+.plannedHeading {
+  margin: var(--space-4) 0 var(--space-2);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+}
+
+.list {
+  margin: 0;
+  padding-left: 1.2em;
+  display: grid;
+  gap: 6px;
+}
+
+.list li::marker {
+  color: var(--lime);
+}

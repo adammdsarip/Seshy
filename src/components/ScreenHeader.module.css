@@ -1,0 +1,48 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 56px;
+  margin-bottom: var(--space-4);
+}
+
+.back {
+  display: grid;
+  place-items: center;
+  width: var(--tap);
+  height: var(--tap);
+  margin-left: calc(var(--space-2) * -1);
+  border-radius: 50%;
+  color: var(--text);
+}
+
+.back:hover {
+  background: var(--surface-2);
+}
+
+.titles {
+  flex: 1;
+  min-width: 0;
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.title {
+  font-size: 30px;
+  line-height: 1.05;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
