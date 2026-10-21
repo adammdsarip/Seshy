@@ -4,77 +4,40 @@
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
-  background: linear-gradient(180deg, #0c1722 0%, var(--bg) 42%, var(--bg-deep) 100%);
+  background: var(--bg);
 }
 
-.glow {
+.photo {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(520px 320px at 88% -4%, rgba(0, 194, 255, 0.16), transparent 70%),
-    radial-gradient(460px 300px at -8% 102%, rgba(0, 194, 255, 0.1), transparent 70%);
+  background-image: var(--photo);
+  background-size: cover;
+  background-position: center 40%;
+  background-repeat: no-repeat;
 }
 
-.scene {
-  position: absolute;
-  inset: auto 0 0 0;
-  width: 100%;
-  height: min(58vh, 520px);
-  opacity: 0.7;
-}
-
-.far {
-  fill: rgba(0, 194, 255, 0.05);
-}
-
-.palms .trunk,
-.fronds path {
-  fill: none;
-  stroke: rgba(0, 194, 255, 0.11);
-  stroke-linecap: round;
-}
-
-.trunk {
-  stroke-width: 7;
-}
-
-.fronds path {
-  stroke-width: 5;
-}
-
-.park {
-  fill: rgba(0, 194, 255, 0.07);
-}
-
-.edge {
-  fill: none;
-  stroke: rgba(0, 194, 255, 0.2);
-  stroke-width: 3;
-  stroke-linecap: round;
-}
-
-.grain {
+.shade {
   position: absolute;
   inset: 0;
-  opacity: 0.35;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Launch screen: the same park, larger and moodier. */
-.launch {
-  background: linear-gradient(180deg, #07101a 0%, #0c1a28 48%, #0a1018 100%);
+/* App pages: a faint ghost of the photo that dissolves into the background colour. */
+.app .photo {
+  opacity: 0.4;
+  filter: saturate(0.8);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.5) 45%, transparent 90%);
+  mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.5) 45%, transparent 90%);
 }
 
-.launch .glow {
+.app .shade {
   background:
-    radial-gradient(640px 420px at 50% 28%, rgba(0, 194, 255, 0.22), transparent 70%),
-    radial-gradient(520px 320px at 50% 110%, rgba(0, 194, 255, 0.16), transparent 70%);
+    radial-gradient(520px 320px at 88% -4%, rgba(0, 194, 255, 0.12), transparent 70%),
+    linear-gradient(180deg, rgba(16, 24, 32, 0.35) 0%, rgba(16, 24, 32, 0.7) 60%, var(--bg) 100%);
 }
 
-.launch .scene {
-  inset: auto -20% 0 -20%;
-  width: 140%;
-  height: min(70vh, 640px);
-  opacity: 1;
+/* Launch screen: the full photo, with a soft dark pool behind the logo and darker edges. */
+.launch .shade {
+  background:
+    radial-gradient(ellipse 70% 38% at 50% 50%, rgba(7, 12, 20, 0.62), transparent 100%),
+    linear-gradient(180deg, rgba(7, 12, 20, 0.45) 0%, transparent 28%, transparent 62%, rgba(7, 12, 20, 0.7) 100%);
 }
