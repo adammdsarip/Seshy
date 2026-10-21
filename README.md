@@ -17,7 +17,7 @@ Stack: Vite, React 19, TypeScript, React Router, CSS Modules, Lucide icons.
 
 Colours live in `src/styles/tokens.css`: background `#101820`, electric cyan `#00C2FF` (navigation, tabs, links, Skate Dice), volt yellow `#D9FF00` (calls to action, wins, the leader, Game of S.K.A.T.E.), concrete white `#F4F7FA` (text), coral `#FF4D6D` (losses, errors). Text/background pairs are checked to WCAG AA.
 
-- **Logo:** the brush logo is `src/assets/brand/seshy-logo.svg` (white letters, volt crown + swoosh) and `seshy-logo-volt.svg` (all volt). Only `src/components/Logo.tsx` references them, so swapping in the final artwork means replacing those two files. **The current files are a stand-in** drawn from the Knewave brush typeface converted to outlines, because no original logo asset was in the repo.
+- **Logo:** `src/assets/brand/seshy-logo.webp`, a transparent brush-lettering logo (white with a volt crown and swoosh). Only `src/components/Logo.tsx` references it, so replacing that one file changes the logo everywhere.
 - **Launch screen:** just the logo on the skatepark backdrop, shown once per browser session and then handed to Home. Visit `/welcome` to see it again. There is no sign-in yet, so there's nothing to hide behind it.
 - **Backdrop:** `SkateparkBackdrop` draws low-contrast silhouettes (skyline, palms, quarter pipe, rail, bowl) behind every screen.
 

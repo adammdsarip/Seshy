@@ -65,7 +65,7 @@ export function HomeScreen() {
       <header className={styles.top}>
         <h1 className="visually-hidden">Seshy home</h1>
         <span className={styles.logo}>
-          <Logo width={116} />
+          <Logo width={136} />
         </span>
         {players.status === 'success' && (
           <Link to="/profile" className={styles.profileLink} aria-label="Your profile">
