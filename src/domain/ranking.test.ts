@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { computeFriendsRanking, formatWinRate } from './ranking';
+import { computeFriendsRanking, currentWinStreak, formatWinRate, startOfMonth } from './ranking';
 import type { MatchResult, Player } from './types';
 
 const members: Player[] = ['me', 'jay', 'alex', 'mia', 'zed'].map((id) => ({
   id,
   username: id[0]!.toUpperCase() + id.slice(1),
-  avatarTone: 'lime',
+  avatarTone: 'volt',
 }));
 
 let n = 0;
@@ -75,14 +75,47 @@ describe('computeFriendsRanking', () => {
     const rows = computeFriendsRanking(
       [result('jay', ['me']), result('me', ['jay'], { gameType: 'skate-dice' })],
       members,
-      'skate-dice',
+      { gameType: 'skate-dice' },
     );
     expect(rows[0]).toMatchObject({ playerId: 'me', wins: 1 });
     expect(rows.find((r) => r.playerId === 'jay')).toMatchObject({ wins: 0, losses: 1 });
   });
 
+  it('can be limited to a period', () => {
+    const rows = computeFriendsRanking(
+      [
+        result('jay', ['me'], { endedAt: '2026-09-30T12:00:00Z' }),
+        result('me', ['jay'], { endedAt: '2026-10-02T12:00:00Z' }),
+      ],
+      members,
+      { since: startOfMonth(new Date('2026-10-20T12:00:00Z')) },
+    );
+    expect(rows.find((r) => r.playerId === 'jay')).toMatchObject({ wins: 0, losses: 1 });
+    expect(rows[0]).toMatchObject({ playerId: 'me', wins: 1 });
+  });
+
   it('formats win rate', () => {
     expect(formatWinRate(null)).toBe('—');
     expect(formatWinRate(2 / 3)).toBe('67%');
+  });
+});
+
+describe('currentWinStreak', () => {
+  const at = (d: number) => `2026-10-${String(d).padStart(2, '0')}T12:00:00Z`;
+
+  it('counts consecutive wins from the newest match, skipping abandoned ones', () => {
+    const results = [
+      result('me', ['jay'], { endedAt: at(10) }),
+      result('jay', ['me'], { endedAt: at(11) }),
+      result('me', ['jay'], { endedAt: at(12) }),
+      result('jay', ['me'], { endedAt: at(13), status: 'abandoned' }),
+      result('me', ['alex'], { endedAt: at(14) }),
+    ];
+    expect(currentWinStreak(results, 'me')).toBe(2);
+  });
+
+  it('is zero when the latest match was lost or there are none', () => {
+    expect(currentWinStreak([result('jay', ['me'], { endedAt: at(10) })], 'me')).toBe(0);
+    expect(currentWinStreak([], 'me')).toBe(0);
   });
 });

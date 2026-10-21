@@ -1,7 +1,7 @@
 import type { GameType, Player, Standing } from '../domain/types';
 import { Avatar } from './Avatar';
+import { CrownIcon } from './BrandIcons';
 import { SkateLetters } from './SkateLetters';
-import { CrownSticker } from './Stickers';
 import styles from './StandingRow.module.css';
 
 interface Props {
@@ -14,13 +14,13 @@ interface Props {
 }
 
 export function StandingRow({ standing, player, gameType, isMe, turnAction }: Props) {
-  const classes = [styles.row, isMe && styles.me, standing.eliminated && styles.out, turnAction && styles.turn];
+  const classes = [styles.row, standing.isLeader && styles.leader, isMe && styles.me, standing.eliminated && styles.out];
   return (
     <li className={classes.filter(Boolean).join(' ')}>
       <span className={`${styles.rank} display`}>
         {standing.isLeader ? (
           <>
-            <CrownSticker size={24} />
+            <CrownIcon size={24} />
             <span className="visually-hidden">Leader, rank {standing.rank}</span>
           </>
         ) : (
@@ -30,9 +30,12 @@ export function StandingRow({ standing, player, gameType, isMe, turnAction }: Pr
           </>
         )}
       </span>
-      <Avatar player={player} size={42} />
+      <Avatar player={player} size={40} />
       <span className={styles.who}>
-        <span className={styles.name}>{player.username}</span>
+        <span className={styles.name}>
+          <span className={styles.nameText}>{player.username}</span>
+          {isMe && <span className={styles.youTag}>You</span>}
+        </span>
         {turnAction && (
           <span className={styles.turnNote}>
             <span className={styles.turnDot} aria-hidden="true" />
@@ -47,9 +50,7 @@ export function StandingRow({ standing, player, gameType, isMe, turnAction }: Pr
         ) : (
           <span className={styles.points}>
             <span className={`${styles.pointsValue} display`}>{standing.points}</span>
-            <span className={styles.pointsUnit}>
-              pts · {standing.landed} landed
-            </span>
+            <span className={styles.pointsUnit}>pts · {standing.landed} landed</span>
           </span>
         )}
       </span>

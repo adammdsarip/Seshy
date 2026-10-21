@@ -7,7 +7,18 @@ import { GameThumb } from './GameArt';
 import styles from './MatchSummaryCard.module.css';
 
 /** Game, place, time, status and mode for one match. */
-export function MatchSummaryCard({ match, children, headingLevel: H = 'h2' }: { match: Match; children?: ReactNode; headingLevel?: 'h2' | 'h3' }) {
+export function MatchSummaryCard({
+  match,
+  children,
+  headingLevel: H = 'h2',
+  showStatus = true,
+}: {
+  match: Match;
+  children?: ReactNode;
+  headingLevel?: 'h2' | 'h3';
+  /** Hide the status pill when the screen already shows it elsewhere. */
+  showStatus?: boolean;
+}) {
   const live = match.status === 'in-progress';
   return (
     <div className={`${styles.card} ${live ? styles.live : ''}`}>
@@ -24,7 +35,7 @@ export function MatchSummaryCard({ match, children, headingLevel: H = 'h2' }: { 
             {live ? `Started ${timeAgo(match.startedAt)}` : formatDateTime(match.startedAt)} · {match.playerIds.length} players
           </p>
         </div>
-        <StatusPill status={match.status} />
+        {showStatus && <StatusPill status={match.status} />}
       </div>
       <div className={styles.chips}>
         <span className={styles.chip}>

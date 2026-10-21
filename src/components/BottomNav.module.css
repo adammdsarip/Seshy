@@ -5,6 +5,8 @@
   background: var(--nav-bg);
   border-top: 1px solid var(--line);
   padding-bottom: env(safe-area-inset-bottom);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
 }
 
 .list {
@@ -37,18 +39,23 @@
 
 .active,
 .active:hover {
-  color: var(--lime);
+  color: var(--cyan);
+}
+
+.active svg {
+  filter: drop-shadow(0 0 8px rgba(0, 194, 255, 0.55));
 }
 
 .active::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 28%;
-  right: 28%;
+  left: 30%;
+  right: 30%;
   height: 3px;
   border-radius: 0 0 3px 3px;
-  background: var(--lime);
+  background: var(--cyan);
+  box-shadow: 0 0 12px rgba(0, 194, 255, 0.7);
 }
 
 /* Tablet & desktop: left rail. */

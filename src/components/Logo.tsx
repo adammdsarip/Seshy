@@ -1,21 +1,20 @@
-import { CrownSticker } from './Stickers';
+import brushLogo from '../assets/brand/seshy-logo.svg';
+import brushLogoVolt from '../assets/brand/seshy-logo-volt.svg';
 import styles from './Logo.module.css';
 
-export function Logo({ size = 'md', tagline = false }: { size?: 'sm' | 'md' | 'lg'; tagline?: boolean }) {
+/**
+ * The Seshy brush logo. This is the only component that knows which file the
+ * logo comes from: to swap in a different logo, replace the two SVGs in
+ * src/assets/brand (white + volt crown, and all-volt) and nothing else changes.
+ */
+export function Logo({ width = 120, variant = 'white' }: { width?: number | string; variant?: 'white' | 'volt' }) {
   return (
-    <div className={`${styles.logo} ${styles[size]}`}>
-      <span className={styles.wordmark}>
-        <CrownSticker className={styles.crown} size={size === 'lg' ? 34 : 22} color="var(--orange)" />
-        <span className="marker">Seshy</span>
-        <sup aria-hidden="true">®</sup>
-      </span>
-      {tagline && (
-        <p className={`${styles.tagline} marker`}>
-          Good friends.
-          <br />
-          Good sessions.
-        </p>
-      )}
-    </div>
+    <img
+      className={styles.logo}
+      src={variant === 'volt' ? brushLogoVolt : brushLogo}
+      alt="Seshy"
+      style={{ width }}
+      draggable={false}
+    />
   );
 }

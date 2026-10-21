@@ -13,16 +13,26 @@ npm run build      # typecheck + production build
 
 Stack: Vite, React 19, TypeScript, React Router, CSS Modules, Lucide icons.
 
-## Status (Phase 1 — UI foundation)
+## Look & feel: Electric Concrete
+
+Colours live in `src/styles/tokens.css`: background `#101820`, electric cyan `#00C2FF` (navigation, tabs, links, Skate Dice), volt yellow `#D9FF00` (calls to action, wins, the leader, Game of S.K.A.T.E.), concrete white `#F4F7FA` (text), coral `#FF4D6D` (losses, errors). Text/background pairs are checked to WCAG AA.
+
+- **Logo:** the brush logo is `src/assets/brand/seshy-logo.svg` (white letters, volt crown + swoosh) and `seshy-logo-volt.svg` (all volt). Only `src/components/Logo.tsx` references them, so swapping in the final artwork means replacing those two files. **The current files are a stand-in** drawn from the Knewave brush typeface converted to outlines, because no original logo asset was in the repo.
+- **Launch screen:** just the logo on the skatepark backdrop, shown once per browser session and then handed to Home. Visit `/welcome` to see it again. There is no sign-in yet, so there's nothing to hide behind it.
+- **Backdrop:** `SkateparkBackdrop` draws low-contrast silhouettes (skyline, palms, quarter pipe, rail, bowl) behind every screen.
+
+## Status
 
 All data is **sample data** (fictional skaters and matches), and the app shows a banner saying so. Add `?sample=empty`, `?sample=error` or `?sample=slow` to any URL to preview the empty, error and loading states. The choice is remembered for the tab; `?sample=default` resets it.
 
 | Area | State |
 | --- | --- |
-| Bottom nav (Home, Trickbook, Play, Sessions, Profile) | Working; becomes a left rail at ≥ 900px |
-| Play, Current Match, Friends Ranking, Match History, Match Details | Working on sample data |
-| Start a Match | Game picker and rules work; mode picker and **Start** are disabled until live gameplay ships |
-| Trickbook, Sessions, Achievements, Edit Profile | Marked "Coming soon" |
+| Launch screen, bottom nav (Home, Trickbook, Play, Sessions, Profile), left rail at ≥ 900px | Working |
+| Home (stats, live match, games, quick actions, recent games) | Working on sample data; stats are computed from results |
+| Play, Current Match, Friends Ranking (all-time / this month / by game), Match History, Match Details | Working on sample data |
+| Start a Match | Game, friends (1–4) and rounds can be chosen; **Start is disabled** until live scoring ships. Invite codes are marked "Soon" |
+| Profile, Friends list, Settings | Working; editing, notifications, privacy, achievements and help are marked "Soon" |
+| Trickbook, Sessions | "Coming soon" placeholders (there is no trick or session feature yet) |
 
 ## Code layout
 
@@ -36,7 +46,8 @@ src/
     repository.ts  SeshyRepository interface: everything the UI reads
     DataProvider   Context + useQuery (loading/error/retry) + usePlayers
     sample/        SAMPLE DATA ONLY: fixtures, a seeded simulator, the sample repository
-  components/      Reusable UI (nav, buttons, panels, stickers, rows, states)
+  assets/brand/    The Seshy logo SVGs
+  components/      Reusable UI (nav, buttons, cards, stat strips, rows, backdrop, logo, launch screen)
   screens/         One file per route
   lib/             Formatting and display helpers
 ```

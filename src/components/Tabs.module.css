@@ -19,6 +19,7 @@
   font-size: 14px;
   font-weight: 700;
   color: var(--text-muted);
+  white-space: nowrap;
 }
 
 .tab:hover {
@@ -27,8 +28,9 @@
 
 .active,
 .active:hover {
-  background: var(--lime);
+  background: var(--cyan);
   color: var(--on-accent);
+  box-shadow: var(--glow-cyan);
 }
 
 .button {

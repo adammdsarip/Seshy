@@ -1,10 +1,10 @@
 .row {
   display: grid;
-  grid-template-columns: 32px auto 1fr auto;
+  grid-template-columns: 28px auto 1fr auto;
   align-items: center;
-  gap: var(--space-3);
-  min-height: 68px;
-  padding: var(--space-3);
+  gap: 10px;
+  min-height: 64px;
+  padding: var(--space-2) var(--space-3);
   border-radius: var(--radius);
   background: var(--surface);
   border: 1px solid var(--line);
@@ -14,8 +14,9 @@
   background: var(--surface-2);
 }
 
-.turn {
-  border-color: var(--lime);
+.leader {
+  border-color: var(--volt);
+  box-shadow: 0 0 0 1px rgba(217, 255, 0, 0.25), var(--glow-volt);
 }
 
 .out {
@@ -29,6 +30,10 @@
   color: var(--text-muted);
 }
 
+.leader .rank {
+  color: var(--volt);
+}
+
 .who {
   display: flex;
   flex-direction: column;
@@ -36,11 +41,31 @@
 }
 
 .name {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
   font-weight: 800;
   font-size: 16px;
+}
+
+.nameText {
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.youTag {
+  flex: none;
+  padding: 1px 7px;
+  border-radius: var(--radius-pill);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--cyan);
+  background: rgba(0, 194, 255, 0.12);
 }
 
 .turnNote {
@@ -48,20 +73,22 @@
   align-items: center;
   gap: 6px;
   font-size: 12px;
-  color: var(--lime);
+  font-weight: 700;
+  color: var(--cyan);
 }
 
 .turnDot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--lime);
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
 }
 
 .outNote {
   font-size: 12px;
   font-weight: 700;
-  color: var(--orange);
+  color: var(--coral);
   text-transform: uppercase;
 }
 
@@ -77,8 +104,12 @@
 }
 
 .pointsValue {
-  font-size: 28px;
-  color: var(--orange);
+  font-size: 26px;
+  color: var(--cyan);
+}
+
+.leader .pointsValue {
+  color: var(--volt);
 }
 
 .pointsUnit {

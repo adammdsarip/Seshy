@@ -19,12 +19,6 @@ body {
   line-height: 1.4;
   color: var(--text);
   background-color: var(--bg);
-  /* Concrete grain + a couple of faint paint splats. */
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
-    radial-gradient(600px 300px at 110% -5%, rgba(214, 255, 85, 0.07), transparent 70%),
-    radial-gradient(500px 260px at -10% 105%, rgba(175, 160, 255, 0.06), transparent 70%);
-  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -71,17 +65,10 @@ p {
   border: 0;
 }
 
-/* Condensed display type used for headings and big numbers. */
+/* Heading and big-number type: plain, bold and highly readable. */
 .display {
-  font-stretch: var(--stretch-condensed);
   font-weight: 800;
-  letter-spacing: -0.01em;
-  text-transform: none;
-}
-
-.marker {
-  font-family: var(--font-marker);
-  font-weight: 400;
+  letter-spacing: -0.015em;
 }
 
 @media (prefers-reduced-motion: reduce) {

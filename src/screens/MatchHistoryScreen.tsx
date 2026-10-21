@@ -25,7 +25,7 @@ export function MatchHistoryScreen() {
     body =
       list.length === 0 ? (
         <EmptyState
-          art={<History size={80} strokeWidth={1.6} aria-hidden="true" />}
+          art={<History size={44} aria-hidden="true" />}
           title="No Matches Yet"
           body={game ? `You haven't finished a ${GAME_LABELS[game]} match yet.` : 'Finished matches with your friends will show up here.'}
           action={
@@ -57,8 +57,8 @@ export function MatchHistoryScreen() {
         onChange={(v) => setParams(v === 'all' ? {} : { game: v }, { replace: true })}
         options={[
           { value: 'all', label: 'All' },
-          { value: 'skate', label: 'S.K.A.T.E.' },
           { value: 'skate-dice', label: 'Skate Dice' },
+          { value: 'skate', label: 'S.K.A.T.E.' },
         ]}
       />
       {body}

@@ -3,7 +3,7 @@ import { ButtonLink } from '../components/Button';
 import { ComingSoon } from '../components/ComingSoon';
 import { ScreenHeader } from '../components/ScreenHeader';
 import { EmptyState } from '../components/States';
-import { DeckSticker } from '../components/Stickers';
+import { DiceIcon } from '../components/BrandIcons';
 
 export function TrickbookScreen() {
   return (
@@ -30,9 +30,9 @@ export function SessionsScreen() {
       <ComingSoon
         title="Your Sessions"
         planned={[
-          'Log a skate session: spot, crew of friends, time on board',
-          'See the games and tricks from each session',
-          'Session streaks and milestones',
+          'Plan a session: spot, time and who’s coming',
+          'See upcoming and past sessions',
+          'Link the games and tricks from each session',
         ]}
       >
         Sessions aren’t built yet. They’ll pull together where you skated, who with, and what went down.
@@ -44,9 +44,9 @@ export function SessionsScreen() {
 export function NotFoundScreen() {
   return (
     <>
-      <ScreenHeader title="Lost the line" />
+      <ScreenHeader title="Not Found" />
       <EmptyState
-        art={<DeckSticker size={100} />}
+        art={<DiceIcon size={44} />}
         title="Page Not Found"
         body="That page doesn’t exist. Let’s get you back to the session."
         action={

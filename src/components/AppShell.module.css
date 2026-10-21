@@ -1,5 +1,6 @@
 .shell {
   min-height: 100dvh;
+  isolation: isolate;
 }
 
 .main {
@@ -15,7 +16,7 @@
   top: -60px;
   z-index: 50;
   padding: var(--space-2) var(--space-3);
-  background: var(--lime);
+  background: var(--volt);
   color: var(--on-accent);
   font-weight: 800;
   border-radius: var(--radius-sm);
@@ -30,9 +31,9 @@
   padding-top: calc(6px + env(safe-area-inset-top));
   font-size: 12px;
   text-align: center;
-  color: var(--purple);
-  background: rgba(175, 160, 255, 0.08);
-  border-bottom: 1px dashed rgba(175, 160, 255, 0.35);
+  color: var(--cyan);
+  background: rgba(0, 194, 255, 0.07);
+  border-bottom: 1px dashed rgba(0, 194, 255, 0.3);
 }
 
 .railLogo {
@@ -52,11 +53,10 @@
   .railLogo {
     position: fixed;
     z-index: 21;
-    top: 36px;
+    top: 40px;
     left: 0;
     width: var(--rail-width);
     display: grid;
     place-items: center;
-    transform: scale(0.8);
   }
 }

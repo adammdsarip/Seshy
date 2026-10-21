@@ -8,12 +8,11 @@
   border: 0;
   border-radius: var(--radius);
   font-weight: 800;
-  font-stretch: var(--stretch-condensed);
-  font-size: 17px;
-  letter-spacing: 0.01em;
+  font-size: 16px;
+  letter-spacing: -0.005em;
   cursor: pointer;
-  transition: transform 120ms ease, filter 120ms ease;
   text-align: center;
+  transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
 }
 
 .button:active:not(:disabled) {
@@ -21,7 +20,7 @@
 }
 
 .button:hover:not(:disabled) {
-  filter: brightness(1.06);
+  filter: brightness(1.07);
 }
 
 .block {
@@ -30,9 +29,9 @@
 }
 
 .primary {
-  background: var(--lime);
+  background: var(--volt);
   color: var(--on-accent);
-  box-shadow: var(--shadow-sticker);
+  box-shadow: 0 0 0 1px rgba(217, 255, 0, 0.5), var(--glow-volt);
 }
 
 .secondary {
@@ -43,14 +42,14 @@
 
 .ghost {
   background: transparent;
-  color: var(--text);
+  color: var(--cyan);
   min-height: var(--tap);
   padding: 0 var(--space-3);
 }
 
 .button:disabled {
   cursor: not-allowed;
-  background: var(--surface-2);
+  background: var(--surface);
   color: var(--text-faint);
   box-shadow: none;
   border: 1px dashed var(--line-strong);

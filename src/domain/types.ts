@@ -13,11 +13,13 @@ export type MatchMode = 'pass-and-play' | 'online';
 
 export type MatchStatus = 'in-progress' | 'completed' | 'abandoned';
 
-export type AvatarTone = 'lime' | 'orange' | 'purple' | 'offwhite';
+export type AvatarTone = 'volt' | 'cyan' | 'coral' | 'white';
 
 export interface Player {
   id: string;
   username: string;
+  /** Public @handle, shown on profile and in player lists when known. */
+  handle?: string;
   avatarTone: AvatarTone;
 }
 

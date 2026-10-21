@@ -20,7 +20,7 @@
 }
 
 .title {
-  font-size: 21px;
+  font-size: 18px;
 }
 
 .action {
@@ -29,11 +29,11 @@
   min-height: var(--tap);
   padding: 0 var(--space-1);
   font-size: 14px;
-  color: var(--text-muted);
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  font-weight: 700;
+  color: var(--cyan);
 }
 
 .action:hover {
-  color: var(--lime);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }

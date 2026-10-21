@@ -1,29 +1,28 @@
 import { useState } from 'react';
 import { Flag, RotateCcw } from 'lucide-react';
 import { useParams } from 'react-router';
-import { Avatar } from '../components/Avatar';
-import { Button, ButtonLink } from '../components/Button';
+import { ButtonLink } from '../components/Button';
+import { CrownIcon } from '../components/BrandIcons';
+import { GameLog } from '../components/GameLog';
 import { MatchSummaryCard } from '../components/MatchSummaryCard';
 import { Panel } from '../components/Panel';
 import { ScreenHeader } from '../components/ScreenHeader';
 import { StandingRow } from '../components/StandingRow';
+import { StatStrip } from '../components/StatStrip';
 import { EmptyState, ErrorState, LoadingState } from '../components/States';
-import { CrownSticker, Splat } from '../components/Stickers';
+import { ChoiceTabs } from '../components/Tabs';
 import { combineQueries, usePlayers, useQuery, type PlayerDirectory } from '../data/DataProvider';
 import { snapshotMatch } from '../domain/rules';
 import type { Match } from '../domain/types';
-import { formatDateTime, joinNames, timeAgo } from '../lib/format';
-import { buildGameLog } from '../lib/gameLog';
+import { formatDateTime, formatDuration, joinNames } from '../lib/format';
 import styles from './MatchDetailsScreen.module.css';
-
-const LOG_PREVIEW = 12;
 
 export function MatchDetailsScreen() {
   const { matchId = '' } = useParams();
   const players = usePlayers();
   const match = useQuery((repo) => repo.getMatch(matchId), [matchId]);
-
   const state = combineQueries(match, players);
+
   let body;
   if (state.status === 'loading') body = <LoadingState label="Loading match" rows={5} />;
   else if (state.status === 'error') body = <ErrorState error={state.error} onRetry={state.retry} />;
@@ -31,7 +30,7 @@ export function MatchDetailsScreen() {
   else if (!match.data)
     body = (
       <EmptyState
-        art={<Flag size={72} strokeWidth={1.6} aria-hidden="true" />}
+        art={<Flag size={44} aria-hidden="true" />}
         title="Match Not Found"
         body="This match doesn’t exist, or it isn’t one you played in."
         action={<ButtonLink to="/play/history">Back to Match History</ButtonLink>}
@@ -53,46 +52,26 @@ export function MatchDetailsScreen() {
 }
 
 function Details({ match, players }: { match: Match; players: PlayerDirectory }) {
+  const [tab, setTab] = useState<'summary' | 'log'>('summary');
   const snap = snapshotMatch(match);
-  const log = buildGameLog(match, (id) => players.get(id).username);
   const live = match.status === 'in-progress';
-  const [showAll, setShowAll] = useState(false);
-  const visibleLog = showAll ? log : log.slice(0, LOG_PREVIEW);
+  const end = match.endedAt ?? match.events.at(-1)?.at ?? match.startedAt;
+
+  const stats = [
+    match.gameType === 'skate-dice'
+      ? { value: match.rounds, label: 'Rounds' }
+      : { value: match.events.length, label: 'Attempts' },
+    { value: formatDuration(match.startedAt, live ? new Date().toISOString() : end), label: live ? 'Elapsed' : 'Duration' },
+    { value: { 'in-progress': 'Live', completed: 'Completed', abandoned: 'Abandoned' }[match.status], label: 'Status' },
+  ];
 
   return (
     <div className="split">
       <div className="stack-lg">
         <MatchSummaryCard match={match} />
-        {match.status === 'completed' && <ResultBanner winnerId={snap.winnerId} players={players} match={match} />}
-
-        <Panel title="Players" bare>
-          <ol className={`list-reset ${styles.players}`}>
-            {snap.standings.map((s) => (
-              <StandingRow
-                key={s.playerId}
-                standing={s}
-                player={players.get(s.playerId)}
-                gameType={match.gameType}
-                isMe={s.playerId === players.me.id}
-                turnAction={live && snap.turn?.playerId === s.playerId ? snap.turn.action : undefined}
-              />
-            ))}
-          </ol>
-        </Panel>
-
-        {live ? (
-          <div className={styles.controls}>
-            <Button variant="secondary" disabled aria-describedby="controls-note">
-              End Match
-            </Button>
-            <Button disabled aria-describedby="controls-note">
-              Next Turn
-            </Button>
-            <p id="controls-note" className={styles.controlsNote}>
-              Scoring controls arrive with live gameplay in the next phase.
-            </p>
-          </div>
-        ) : (
+        {match.status === 'completed' && <ResultBanner winnerId={snap.winnerId} players={players} match={match} end={end} />}
+        <StatStrip label="Match facts" stats={stats} compact />
+        {live ? null : (
           <div className={styles.controls}>
             <ButtonLink to={`/play/start?game=${match.gameType}`} icon={<RotateCcw size={18} aria-hidden="true" />}>
               Play Again
@@ -104,45 +83,51 @@ function Details({ match, players }: { match: Match; players: PlayerDirectory })
         )}
       </div>
 
-      <Panel title="Game Log">
-        <ol className={`list-reset ${styles.log}`} id="game-log">
-          {visibleLog.map((entry) => (
-            <li key={entry.id} className={`${styles.logItem} ${styles[entry.tone]}`}>
-              {entry.playerId ? (
-                <Avatar player={players.get(entry.playerId)} size={28} />
-              ) : (
-                <span className={styles.logIcon} aria-hidden="true">
-                  <Flag size={16} />
-                </span>
-              )}
-              <span className={styles.logText}>{entry.text}</span>
-              <time className={styles.logTime} dateTime={entry.at}>
-                {live ? timeAgo(entry.at) : formatDateTime(entry.at).split(' · ')[1]}
-              </time>
-            </li>
-          ))}
-        </ol>
-        {log.length > LOG_PREVIEW && (
-          <Button variant="ghost" block aria-controls="game-log" aria-expanded={showAll} onClick={() => setShowAll((v) => !v)}>
-            {showAll ? 'Show latest only' : `Show full log (${log.length} entries)`}
-          </Button>
+      <div className="stack">
+        <ChoiceTabs
+          label="Match view"
+          value={tab}
+          onChange={setTab}
+          options={[
+            { value: 'summary', label: 'Summary' },
+            { value: 'log', label: 'Game Log' },
+          ]}
+        />
+        {tab === 'summary' ? (
+          <Panel title={match.status === 'completed' ? 'Final Results' : 'Standings'} bare>
+            <ol className={`list-reset ${styles.players}`}>
+              {snap.standings.map((s) => (
+                <StandingRow
+                  key={s.playerId}
+                  standing={s}
+                  player={players.get(s.playerId)}
+                  gameType={match.gameType}
+                  isMe={s.playerId === players.me.id}
+                  turnAction={live && snap.turn?.playerId === s.playerId ? snap.turn.action : undefined}
+                />
+              ))}
+            </ol>
+          </Panel>
+        ) : (
+          <section className={styles.logCard} aria-label="Game log">
+            <GameLog match={match} players={players} />
+          </section>
         )}
-      </Panel>
+      </div>
     </div>
   );
 }
 
-function ResultBanner({ winnerId, players, match }: { winnerId: string | null; players: PlayerDirectory; match: Match }) {
+function ResultBanner({ winnerId, players, match, end }: { winnerId: string | null; players: PlayerDirectory; match: Match; end: string }) {
   const youWon = winnerId === players.me.id;
   const headline = winnerId === null ? 'It’s a draw!' : youWon ? 'You win!' : `${players.get(winnerId).username} wins!`;
   const others = match.playerIds.filter((id) => id !== winnerId).map((id) => players.get(id).username);
   return (
     <div className={`${styles.banner} ${youWon ? styles.bannerWin : ''}`}>
-      <Splat className={styles.bannerSplat} size={160} color={youWon ? 'rgba(214,255,85,.18)' : 'rgba(175,160,255,.16)'} />
-      <CrownSticker size={44} color={youWon ? 'var(--lime)' : 'var(--purple)'} />
-      <p className={`${styles.bannerText} marker`}>{headline}</p>
+      <CrownIcon size={40} />
+      <p className={styles.bannerText}>{headline}</p>
       <p className={styles.bannerSub}>
-        {winnerId ? `Beat ${joinNames(others)}` : 'Dead heat'} · {formatDateTime(match.endedAt ?? match.startedAt)}
+        {winnerId ? `Beat ${joinNames(others)}` : 'Dead heat'} · {formatDateTime(end)}
       </p>
     </div>
   );

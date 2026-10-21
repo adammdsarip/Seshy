@@ -1,9 +1,3 @@
-.games {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-3);
-}
-
 .currentLink {
   display: block;
   border-radius: var(--radius-lg);
@@ -13,7 +7,7 @@
   background: var(--surface-2);
 }
 
-.leaderLine {
+.turnLine {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -22,7 +16,7 @@
   padding-top: var(--space-3);
   border-top: 1px solid var(--line);
   font-weight: 700;
-  color: var(--lime);
+  color: var(--cyan);
 }
 
 .noMatch {
@@ -41,12 +35,88 @@
   align-items: center;
   min-height: var(--tap);
   font-weight: 800;
-  color: var(--lime);
+  color: var(--cyan);
+}
+
+.howTo {
+  display: grid;
+}
+
+.rule + .rule {
+  border-top: 1px solid var(--line);
+}
+
+.ruleSummary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 60px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.ruleSummary::-webkit-details-marker {
+  display: none;
+}
+
+.ruleIcon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--surface-2);
+}
+
+.ruleVolt {
+  color: var(--volt);
+}
+.ruleCyan {
+  color: var(--cyan);
+}
+
+.ruleText {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.ruleText strong {
+  font-size: 15px;
+  color: var(--text);
+}
+
+.ruleChevron {
+  flex: none;
+  color: var(--text-faint);
+  transition: transform 160ms ease;
+}
+
+.rule[open] .ruleChevron {
+  transform: rotate(180deg);
+}
+
+.ruleList {
+  margin: 0 0 var(--space-3);
+  padding-left: calc(40px + var(--space-3) + 1.1em);
+  display: grid;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.ruleList li::marker {
+  color: var(--cyan);
+  font-weight: 800;
 }
 
 .quick {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-2);
 }
 
@@ -56,7 +126,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  min-height: 88px;
+  min-height: 84px;
   padding: var(--space-3) var(--space-2);
   text-align: center;
   font-size: 13px;
@@ -67,7 +137,7 @@
 }
 
 .quickItem svg {
-  color: var(--lime);
+  color: var(--cyan);
 }
 
 .quickItem:hover {

@@ -25,15 +25,15 @@ const RESULT: Record<ViewerOutcome, { label: string; cls: string }> = {
   abandoned: { label: 'Void', cls: styles.void! },
 };
 
-/** Tilted WIN / LOSE sticker from the reference design. */
+/** Slightly tilted WIN / LOSE tag, like a sticker on a deck. */
 export function ResultSticker({ outcome }: { outcome: ViewerOutcome }) {
   const r = RESULT[outcome];
-  return <span className={`${styles.sticker} ${r.cls} marker`}>{r.label}</span>;
+  return <span className={`${styles.sticker} ${r.cls}`}>{r.label}</span>;
 }
 
 export function SampleTag() {
   return (
-    <span className={styles.sampleTag} title="Fictional data for the Phase 1 UI preview">
+    <span className={styles.sampleTag} title="Fictional data for the preview">
       Sample
     </span>
   );

@@ -1,48 +1,40 @@
 .header {
-  display: flex;
+  display: grid;
+  grid-template-columns: var(--tap) 1fr var(--tap);
   align-items: center;
   gap: var(--space-2);
   min-height: 56px;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
 }
 
-.back {
+.side {
+  display: flex;
+  align-items: center;
+}
+
+.right {
+  justify-content: flex-end;
+}
+
+.iconButton {
   display: grid;
   place-items: center;
   width: var(--tap);
   height: var(--tap);
-  margin-left: calc(var(--space-2) * -1);
   border-radius: 50%;
   color: var(--text);
 }
 
-.back:hover {
+.iconButton:hover {
   background: var(--surface-2);
 }
 
-.titles {
-  flex: 1;
-  min-width: 0;
-}
-
-.eyebrow {
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-}
-
 .title {
-  font-size: 30px;
-  line-height: 1.05;
+  font-size: 20px;
+  line-height: 1.15;
+  text-align: center;
   display: flex;
   align-items: center;
-  gap: var(--space-3);
-}
-
-.actions {
-  display: flex;
-  align-items: center;
+  justify-content: center;
   gap: var(--space-2);
 }

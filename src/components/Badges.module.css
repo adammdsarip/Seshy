@@ -10,7 +10,7 @@
 }
 
 .live {
-  background: var(--lime);
+  background: var(--volt);
   color: var(--on-accent);
 }
 .completed {
@@ -33,39 +33,43 @@
 
 @keyframes pulse {
   50% {
-    opacity: 0.25;
+    opacity: 0.3;
   }
 }
 
 .sticker {
   display: inline-block;
-  min-width: 56px;
-  padding: 4px 10px 2px;
+  min-width: 54px;
+  padding: 4px 10px;
   text-align: center;
   text-transform: uppercase;
-  font-size: 17px;
-  line-height: 1.1;
-  border-radius: 4px;
-  transform: rotate(-6deg);
-  box-shadow: var(--shadow-sticker);
+  font-size: 14px;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 0.03em;
+  line-height: 1.15;
+  border-radius: 5px;
+  transform: rotate(-4deg);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.4);
   color: var(--on-accent);
 }
 
 .win {
-  background: var(--lime);
+  background: var(--volt);
 }
 .loss {
-  background: var(--orange);
-  transform: rotate(5deg);
+  background: var(--coral);
+  transform: rotate(3deg);
 }
 .draw {
-  background: var(--purple);
+  background: var(--cyan);
 }
 .void {
   background: var(--surface-3);
   color: var(--text-muted);
   box-shadow: none;
   transform: none;
+  font-style: normal;
 }
 
 .sampleTag {
@@ -73,8 +77,8 @@
   align-items: center;
   padding: 2px 8px;
   border-radius: var(--radius-pill);
-  border: 1px dashed var(--purple);
-  color: var(--purple);
+  border: 1px dashed var(--cyan);
+  color: var(--cyan);
   font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;

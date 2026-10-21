@@ -1,32 +1,37 @@
-/* Seshy design tokens. Brand palette first, then derived UI values. */
+/* Seshy design tokens — "Electric Concrete". Brand colours first, then derived UI values. */
 :root {
   /* Brand */
-  --asphalt: #17191c;
-  --lime: #d6ff55;
-  --orange: #ff795d;
-  --purple: #afa0ff;
-  --offwhite: #f5f2e9;
-  --grey: #62676d;
+  --bg: #101820;
+  --cyan: #00c2ff;
+  --volt: #d9ff00;
+  --white: #f4f7fa;
+  --coral: #ff4d6d;
 
-  /* Surfaces */
-  --bg: var(--asphalt);
-  --surface: #202328;
-  --surface-2: #2a2e34;
-  --surface-3: #33383f;
-  --nav-bg: #111315;
-  --line: rgba(245, 242, 233, 0.08);
-  --line-strong: rgba(245, 242, 233, 0.16);
+  /* Surfaces: blue-tinted charcoals that step up from the background */
+  --bg-deep: #0a1018;
+  --surface: #17222e;
+  --surface-2: #1e2d3c;
+  --surface-3: #283a4d;
+  --nav-bg: rgba(10, 16, 24, 0.94);
+  --line: rgba(244, 247, 250, 0.08);
+  --line-strong: rgba(244, 247, 250, 0.16);
 
-  /* Text — muted text is lighter than --grey so it passes WCAG AA on dark surfaces. */
-  --text: var(--offwhite);
-  --text-muted: #a7acb2;
-  --text-faint: #80858b;
-  --on-accent: var(--asphalt);
+  /* Text. Muted/faint are tuned to stay ≥ 4.5:1 on every surface. */
+  --text: var(--white);
+  --text-muted: #9fb0c1;
+  --text-faint: #7f92a5;
+  --on-accent: var(--bg);
+
+  /* Semantic accents */
+  --game-dice: var(--cyan);
+  --game-skate: var(--volt);
+  --win: var(--volt);
+  --loss: var(--coral);
+  --glow-cyan: 0 0 28px rgba(0, 194, 255, 0.22);
+  --glow-volt: 0 0 28px rgba(217, 255, 0, 0.16);
 
   /* Type */
   --font-ui: 'Archivo Variable', 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-marker: 'Permanent Marker', 'Marker Felt', 'Comic Sans MS', cursive;
-  --stretch-condensed: 72%;
 
   /* Spacing (4px grid) */
   --space-1: 4px;
@@ -38,18 +43,17 @@
   --space-7: 48px;
 
   --radius-sm: 10px;
-  --radius: 16px;
-  --radius-lg: 22px;
+  --radius: 14px;
+  --radius-lg: 18px;
   --radius-pill: 999px;
 
   --tap: 44px; /* minimum touch target */
-  --nav-height: 68px;
+  --nav-height: 64px;
   --rail-width: 96px;
   --gutter: 16px;
   --content-max: 1040px;
 
-  --shadow-sticker: 0 3px 0 rgba(0, 0, 0, 0.35);
-  --focus-ring: 0 0 0 3px var(--asphalt), 0 0 0 5px var(--lime);
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--cyan);
 }
 
 @media (min-width: 600px) {

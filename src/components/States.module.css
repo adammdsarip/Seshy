@@ -29,23 +29,19 @@
 }
 
 .art {
-  position: relative;
   display: grid;
   place-items: center;
-  width: 140px;
-  height: 110px;
-  margin-bottom: var(--space-3);
-  color: var(--offwhite);
-}
-
-.sparks {
-  position: absolute;
-  inset: 20px 0 auto;
-  margin: 0 auto;
+  width: 96px;
+  height: 96px;
+  margin-bottom: var(--space-4);
+  border-radius: 50%;
+  color: var(--cyan);
+  background: radial-gradient(circle, rgba(0, 194, 255, 0.18), rgba(0, 194, 255, 0.04) 70%);
+  box-shadow: inset 0 0 0 1px rgba(0, 194, 255, 0.25);
 }
 
 .title {
-  font-size: 24px;
+  font-size: 20px;
   margin-bottom: var(--space-2);
 }
 
@@ -63,7 +59,8 @@
   width: 100%;
 }
 
-.errorIcon {
-  color: var(--orange);
-  margin-bottom: var(--space-3);
+.error .art {
+  color: var(--coral);
+  background: radial-gradient(circle, rgba(255, 77, 109, 0.18), rgba(255, 77, 109, 0.04) 70%);
+  box-shadow: inset 0 0 0 1px rgba(255, 77, 109, 0.3);
 }

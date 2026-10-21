@@ -1,22 +1,26 @@
-.orange {
-  background: var(--orange);
+.cyan {
+  background: linear-gradient(150deg, #19cdff 0%, var(--cyan) 55%, #00a8e0 100%);
+  box-shadow: 0 6px 24px rgba(0, 194, 255, 0.22);
 }
-.purple {
-  background: var(--purple);
+.volt {
+  background: linear-gradient(150deg, #e6ff3a 0%, var(--volt) 55%, #c4e600 100%);
+  box-shadow: 0 6px 24px rgba(217, 255, 0, 0.16);
 }
 
 .thumb {
-  position: relative;
   flex: none;
   display: grid;
   place-items: center;
-  overflow: hidden;
   border-radius: 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
 }
 
-.thumbSplat {
-  position: absolute;
-  inset: auto -30% -30% auto;
+.thumb-skate {
+  color: var(--volt);
+}
+.thumb-skate-dice {
+  color: var(--cyan);
 }
 
 .card {
@@ -25,69 +29,85 @@
   display: flex;
   color: var(--on-accent);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sticker);
   transition: transform 140ms ease;
 }
 
 .card:hover {
-  transform: translateY(-2px) rotate(-0.4deg);
+  transform: translateY(-2px);
 }
 
-.cardSplat {
+.scene {
   position: absolute;
-  right: -36px;
-  bottom: -40px;
+  right: 0;
+  bottom: 0;
+  width: 62%;
+  color: var(--on-accent);
+  opacity: 0.13;
   pointer-events: none;
 }
 
-.cardText {
+.cardIcon,
+.cardText,
+.arrow {
   position: relative;
+}
+
+.cardText {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
 .cardTitle {
-  font-size: 22px;
-  line-height: 1.05;
+  font-size: 19px;
+  line-height: 1.1;
 }
 
 .cardTagline {
   font-size: 13px;
   font-weight: 600;
-  opacity: 0.85;
+  opacity: 0.82;
+}
+
+.arrow {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--white);
 }
 
 .tile {
   flex-direction: column;
-  justify-content: space-between;
-  gap: var(--space-4);
-  min-height: 150px;
+  gap: var(--space-5);
+  min-height: 168px;
   padding: var(--space-4);
 }
 
-.tile .cardIcon {
-  position: relative;
+.tile .arrow {
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-3);
 }
 
-.wide {
+.tile .cardText {
+  padding-right: 40px;
+}
+
+.banner {
   align-items: center;
   gap: var(--space-4);
-  min-height: 88px;
+  min-height: 112px;
   padding: var(--space-4);
 }
 
-.wide .cardText {
+.banner .cardText {
   flex: 1;
 }
 
-.arrow {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: var(--asphalt);
-  color: var(--offwhite);
+.banner .cardTitle {
+  font-size: 22px;
 }

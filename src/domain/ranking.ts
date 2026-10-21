@@ -12,6 +12,12 @@ export interface RankingRow {
   winRate: number | null;
 }
 
+export interface RankingFilter {
+  gameType?: GameType;
+  /** Only count matches that ended on or after this moment (e.g. start of the month). */
+  since?: Date;
+}
+
 /**
  * Friends Ranking: the viewer plus their accepted friends — never a global
  * leaderboard.
@@ -25,7 +31,7 @@ export interface RankingRow {
 export function computeFriendsRanking(
   results: MatchResult[],
   members: Player[],
-  gameType?: GameType,
+  { gameType, since }: RankingFilter = {},
 ): RankingRow[] {
   const memberIds = new Set(members.map((m) => m.id));
   const tally = new Map(members.map((m) => [m.id, { wins: 0, losses: 0, draws: 0 }]));
@@ -33,6 +39,7 @@ export function computeFriendsRanking(
   for (const result of results) {
     if (result.status !== 'completed') continue;
     if (gameType && result.gameType !== gameType) continue;
+    if (since && new Date(result.endedAt) < since) continue;
     for (const placement of result.placements) {
       if (!memberIds.has(placement.playerId)) continue;
       const row = tally.get(placement.playerId)!;
@@ -62,4 +69,24 @@ export function computeFriendsRanking(
 
 export function formatWinRate(winRate: number | null): string {
   return winRate === null ? '—' : `${Math.round(winRate * 100)}%`;
+}
+
+export function startOfMonth(now = new Date()): Date {
+  return new Date(now.getFullYear(), now.getMonth(), 1);
+}
+
+/**
+ * The player's current run of consecutive wins, newest match first.
+ * Abandoned matches are skipped (they don't count); a loss or draw ends the run.
+ */
+export function currentWinStreak(results: MatchResult[], playerId: string): number {
+  const mine = results
+    .filter((r) => r.status === 'completed' && r.placements.some((p) => p.playerId === playerId))
+    .sort((a, b) => b.endedAt.localeCompare(a.endedAt));
+  let streak = 0;
+  for (const r of mine) {
+    if (r.placements.find((p) => p.playerId === playerId)?.outcome !== 'win') break;
+    streak++;
+  }
+  return streak;
 }

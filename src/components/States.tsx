@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 import { RefreshCw, TriangleAlert } from 'lucide-react';
 import { Button } from './Button';
-import { Sparks } from './Stickers';
 import styles from './States.module.css';
 
 export function LoadingState({ label = 'Loading', rows = 3 }: { label?: string; rows?: number }) {
@@ -25,10 +24,7 @@ interface EmptyProps {
 export function EmptyState({ art, title, body, action }: EmptyProps) {
   return (
     <div className={styles.empty}>
-      <div className={styles.art}>
-        <Sparks className={styles.sparks} />
-        {art}
-      </div>
+      <div className={styles.art}>{art}</div>
       <h2 className={`${styles.title} display`}>{title}</h2>
       <p className={styles.body}>{body}</p>
       {action && <div className={styles.action}>{action}</div>}
@@ -39,7 +35,9 @@ export function EmptyState({ art, title, body, action }: EmptyProps) {
 export function ErrorState({ error, onRetry }: { error: Error; onRetry: () => void }) {
   return (
     <div className={`${styles.empty} ${styles.error}`} role="alert">
-      <TriangleAlert size={40} aria-hidden="true" className={styles.errorIcon} />
+      <div className={styles.art}>
+        <TriangleAlert size={40} aria-hidden="true" />
+      </div>
       <h2 className={`${styles.title} display`}>Couldn’t load this</h2>
       <p className={styles.body}>{error.message}</p>
       <div className={styles.action}>

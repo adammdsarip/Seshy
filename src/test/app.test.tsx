@@ -60,33 +60,67 @@ describe('Start a Match', () => {
     expect(screen.getByText('How Skate Dice works')).toBeInTheDocument();
     await user.click(screen.getByRole('radio', { name: /Game of S\.K\.A\.T\.E\./ }));
     expect(screen.getByText('How Game of S.K.A.T.E. works')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Start Game of S.K.A.T.E.' })).toBeDisabled();
-    expect(screen.getByRole('radio', { name: /Pass & play/ })).toBeDisabled();
-    expect(screen.getByRole('radio', { name: /Online/ })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Start Match' })).toBeDisabled();
+    expect(screen.getByText(/can’t be started/)).toBeInTheDocument();
+  });
+
+  it('selects 1–4 friends and caps the match at five players', async () => {
+    const { user } = renderApp('/play/start');
+    const jay = await screen.findByRole('checkbox', { name: /Jay/ });
+    expect(screen.getByText(/1 player · Skate Dice · 5 rounds · pick at least one friend/)).toBeInTheDocument();
+    await user.click(jay);
+    expect(screen.getByText(/2 players · Skate Dice · 5 rounds$/)).toBeInTheDocument();
+    for (const name of [/Alex/, /Mia/, /Sam/]) await user.click(screen.getByRole('checkbox', { name }));
+    expect(screen.getByText(/5 players/)).toBeInTheDocument();
+    // Everyone is picked, so unpick one and confirm the box frees up again.
+    await user.click(jay);
+    expect(screen.getByText(/4 players/)).toBeInTheDocument();
+  });
+
+  it('adjusts rounds for Skate Dice only, within limits', async () => {
+    const { user } = renderApp('/play/start?game=skate-dice');
+    const more = await screen.findByRole('button', { name: 'More rounds' });
+    for (let i = 0; i < 8; i++) await user.click(more);
+    expect(more).toBeDisabled();
+    expect(screen.getByText(/10 rounds/)).toBeInTheDocument();
+    await user.click(screen.getByRole('radio', { name: /Game of S\.K\.A\.T\.E\./ }));
+    expect(screen.queryByRole('button', { name: 'More rounds' })).not.toBeInTheDocument();
+  });
+
+  it('shows invites as not available yet', async () => {
+    renderApp('/play/start');
+    expect(await screen.findByText('Add Friend')).toBeInTheDocument();
+    expect(screen.getByText('Soon')).toBeInTheDocument();
   });
 });
 
-describe('Current Match leaderboard', () => {
+describe('Current Match', () => {
   it('shows standings, leader, turn and S.K.A.T.E. letters', async () => {
     renderApp('/play/leaderboard/current');
-    expect(await screen.findByText('Leading')).toBeInTheDocument();
-    // In the facts panel and on the player whose turn it is.
-    expect(screen.getAllByText('Up now')).toHaveLength(2);
-    expect(screen.getAllByRole('img', { name: /letters|No letters/ }).length).toBe(4);
+    expect(await screen.findByText(/is leading/)).toBeInTheDocument();
+    expect(screen.getAllByText('Up now')).toHaveLength(1);
+    expect(screen.getByRole('region', { name: 'Whose turn it is' })).toHaveTextContent(/turn/);
+    expect(screen.getAllByRole('img', { name: /letters|No letters/ }).length).toBeGreaterThanOrEqual(4);
     expect(screen.getByText('Live')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /View Match Details/ })).toHaveAttribute('href', '/play/matches/sample-live-1');
+  });
+
+  it('has working Leaderboard / Game Log tabs and honest disabled controls', async () => {
+    const { user } = renderApp('/play/leaderboard/current');
+    const board = await screen.findByRole('button', { name: 'Leaderboard' });
+    expect(board).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: 'End Match' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Next Turn' })).toBeDisabled();
+    await user.click(screen.getByRole('button', { name: 'Game Log' }));
+    expect(screen.getByRole('region', { name: 'Game log' })).toBeInTheDocument();
+    expect(screen.getAllByRole('time').length).toBeGreaterThan(0);
+    expect(screen.queryByRole('button', { name: 'End Match' })).not.toBeInTheDocument();
   });
 
   it('shows an empty state when no match is running', async () => {
     renderApp('/play/leaderboard/current', { scenario: 'empty' });
     expect(await screen.findByRole('heading', { name: 'No Active Match' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Start a Match/ })).toHaveAttribute('href', '/play/start');
-  });
-
-  it('switches to Friends Ranking via the tabs', async () => {
-    const { user } = renderApp('/play/leaderboard/current');
-    await user.click(screen.getByRole('link', { name: 'Friends Ranking' }));
-    expect(await screen.findByRole('table')).toBeInTheDocument();
   });
 });
 
@@ -98,7 +132,17 @@ describe('Friends Ranking', () => {
     expect(rows).toHaveLength(5);
     const wins = rows.map((r) => Number(within(r).getAllByRole('cell')[2]!.textContent));
     expect([...wins].sort((a, b) => b - a)).toEqual(wins);
+    expect(within(table).getByRole('row', { current: true })).toHaveTextContent('Adam');
     expect(within(table).getByRole('row', { current: true })).toHaveTextContent('You');
+  });
+
+  it('can be limited to this month', async () => {
+    const { user } = renderApp('/play/leaderboard/friends');
+    await screen.findByRole('table');
+    expect(screen.getByRole('button', { name: 'All Friends' })).toHaveAttribute('aria-pressed', 'true');
+    await user.click(screen.getByRole('button', { name: 'This Month' }));
+    expect(screen.getByRole('button', { name: 'This Month' })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('table', { name: /this month/ })).toBeInTheDocument();
   });
 
   it('filters by game', async () => {
@@ -129,7 +173,8 @@ describe('Match History', () => {
 
     await user.click(dice[0]!);
     expect(await screen.findByRole('heading', { level: 1, name: 'Match Details' })).toBeInTheDocument();
-    expect(await screen.findByRole('heading', { name: 'Game Log' })).toBeInTheDocument();
+    expect(await screen.findByRole('button', { name: 'Summary' })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('heading', { name: 'Final Results' })).toBeInTheDocument();
   });
 
   it('shows an empty state', async () => {
@@ -139,10 +184,19 @@ describe('Match History', () => {
 });
 
 describe('Match Details', () => {
-  it('shows the result, players and an expandable game log', async () => {
-    const { user } = renderApp('/play/matches/sample-match-1');
+  it('shows the result, facts and final results', async () => {
+    renderApp('/play/matches/sample-match-1');
     expect(await screen.findByText(/wins!|You win!|draw!/i)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Play Again/ })).toHaveAttribute('href', '/play/start?game=skate');
+    const facts = screen.getByRole('group', { name: 'Match facts' });
+    expect(facts).toHaveTextContent('Duration');
+    expect(facts).toHaveTextContent('Completed');
+    expect(screen.getByRole('heading', { name: 'Final Results' })).toBeInTheDocument();
+  });
+
+  it('has an expandable game log on its own tab', async () => {
+    const { user } = renderApp('/play/matches/sample-match-1');
+    await user.click(await screen.findByRole('button', { name: 'Game Log' }));
     const toggle = screen.getByRole('button', { name: /Show full log/ });
     const before = screen.getAllByRole('time').length;
     await user.click(toggle);
@@ -150,10 +204,11 @@ describe('Match Details', () => {
     expect(toggle).toHaveAttribute('aria-expanded', 'true');
   });
 
-  it('disables gameplay controls on a live match', async () => {
+  it('shows a live match as standings with no result banner', async () => {
     renderApp('/play/matches/sample-live-1');
-    expect(await screen.findByRole('button', { name: 'End Match' })).toBeDisabled();
-    expect(screen.getByRole('button', { name: 'Next Turn' })).toBeDisabled();
+    expect(await screen.findByRole('heading', { name: 'Standings' })).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /Play Again/ })).not.toBeInTheDocument();
+    expect(screen.getByRole('group', { name: 'Match facts' })).toHaveTextContent('Live');
   });
 
   it('handles unknown matches', async () => {
@@ -174,12 +229,64 @@ describe('errors', () => {
   });
 });
 
+describe('Home', () => {
+  it('shows real stats derived from results, the game cards and quick actions', async () => {
+    renderApp('/');
+    const stats = await screen.findByRole('group', { name: 'Your stats' });
+    expect(stats).toHaveTextContent('Total Wins');
+    expect(stats).toHaveTextContent('Win Rate');
+    expect(stats).toHaveTextContent('Win Streak');
+    expect(within(screen.getByRole('main')).getByRole('img', { name: 'Seshy' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /^Skate Dice/ })).toHaveAttribute('href', '/play/start?game=skate-dice');
+    const quick = screen.getByRole('navigation', { name: 'Quick actions' });
+    expect(within(quick).getAllByRole('link').map((l) => l.getAttribute('href'))).toEqual([
+      '/play/start',
+      '/play/history',
+      '/play/leaderboard/friends',
+      '/sessions',
+    ]);
+    expect(await screen.findAllByRole('link', { name: /View match details/ })).toHaveLength(3);
+  });
+});
+
 describe('Profile', () => {
-  it('shows your record and accepted friends only', async () => {
+  it('shows your record, shortcuts and disabled editing', async () => {
     renderApp('/profile');
-    expect(await screen.findByText('Wins')).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'Friends (4)' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Adam' })).toBeInTheDocument();
+    expect(screen.getByText('@adam_skates')).toBeInTheDocument();
+    expect(screen.getByRole('group', { name: 'Your record' })).toHaveTextContent('Win Rate');
+    const main = within(screen.getByRole('main'));
+    expect(main.getByRole('link', { name: 'Trickbook' })).toHaveAttribute('href', '/trickbook');
+    expect(main.getByRole('link', { name: 'Sessions' })).toHaveAttribute('href', '/sessions');
+    expect(main.getByRole('link', { name: /Friends/ })).toHaveAttribute('href', '/profile/friends');
+    expect(screen.getByRole('link', { name: 'Settings' })).toHaveAttribute('href', '/settings');
     expect(screen.getByRole('button', { name: 'Edit Profile' })).toBeDisabled();
+    expect(screen.getByText('Achievements').closest('[aria-disabled]')).not.toBeNull();
+  });
+
+  it('lists accepted friends only, with no search', async () => {
+    renderApp('/profile/friends');
+    expect(await screen.findByText('Jay')).toBeInTheDocument();
+    expect(within(screen.getByRole('main')).getAllByRole('listitem')).toHaveLength(4);
     expect(screen.queryByRole('searchbox')).not.toBeInTheDocument();
+    expect(screen.getByText(/no public search/)).toBeInTheDocument();
+  });
+});
+
+describe('Settings', () => {
+  it('shows grouped settings, marking unbuilt ones as coming soon', () => {
+    renderApp('/settings');
+    expect(screen.getByRole('heading', { name: 'Account' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'App' })).toBeInTheDocument();
+    expect(screen.getByText('Dark')).toBeInTheDocument();
+    expect(screen.getByText(/^v\d+\.\d+\.\d+/)).toBeInTheDocument();
+    expect(screen.getAllByText('Soon')).toHaveLength(4);
+  });
+});
+
+describe('Trickbook and Sessions', () => {
+  it.each(['/trickbook', '/sessions'])('%s is an honest placeholder', (path) => {
+    renderApp(path);
+    expect(screen.getByText('Coming soon')).toBeInTheDocument();
   });
 });

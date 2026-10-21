@@ -6,7 +6,7 @@
 }
 
 .live {
-  border-color: rgba(214, 255, 85, 0.35);
+  border-color: rgba(217, 255, 0, 0.3);
 }
 
 .top {
@@ -21,8 +21,8 @@
 }
 
 .title {
-  font-size: 22px;
-  line-height: 1.1;
+  font-size: 18px;
+  line-height: 1.15;
 }
 
 .meta {

@@ -4,21 +4,20 @@
   place-items: center;
   border-radius: 50%;
   font-weight: 800;
-  font-stretch: var(--stretch-condensed);
+  letter-spacing: -0.02em;
   color: var(--on-accent);
-  border: 2px solid var(--offwhite);
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px rgba(244, 247, 250, 0.28);
 }
 
-.lime {
-  background: var(--lime);
+.volt {
+  background: var(--volt);
 }
-.orange {
-  background: var(--orange);
+.cyan {
+  background: var(--cyan);
 }
-.purple {
-  background: var(--purple);
+.coral {
+  background: var(--coral);
 }
-.offwhite {
-  background: var(--offwhite);
+.white {
+  background: var(--white);
 }

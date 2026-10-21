@@ -7,13 +7,13 @@ import { simulateDice, simulateSkate } from './simulate';
  * except the repository factory.
  */
 
-export const SAMPLE_ME: Player = { id: 'me', username: 'You', avatarTone: 'lime' };
+export const SAMPLE_ME: Player = { id: 'me', username: 'Adam', handle: 'adam_skates', avatarTone: 'volt' };
 
 export const SAMPLE_FRIENDS: Player[] = [
-  { id: 'jay', username: 'Jay', avatarTone: 'orange' },
-  { id: 'alex', username: 'Alex', avatarTone: 'purple' },
-  { id: 'mia', username: 'Mia', avatarTone: 'offwhite' },
-  { id: 'sam', username: 'Sam', avatarTone: 'orange' },
+  { id: 'jay', username: 'Jay', handle: 'jayramp', avatarTone: 'coral' },
+  { id: 'alex', username: 'Alex', handle: 'alexgrinds', avatarTone: 'cyan' },
+  { id: 'mia', username: 'Mia', handle: 'mia.flips', avatarTone: 'white' },
+  { id: 'sam', username: 'Sam', handle: 'sam_nollie', avatarTone: 'coral' },
 ];
 
 const SKILL: Record<string, number> = { me: 0.62, jay: 0.7, alex: 0.58, mia: 0.55, sam: 0.45 };

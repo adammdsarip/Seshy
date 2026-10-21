@@ -59,7 +59,7 @@ export interface PlayerDirectory {
   get(id: string): Player;
 }
 
-const UNKNOWN = (id: string): Player => ({ id, username: 'Unknown skater', avatarTone: 'offwhite' });
+const UNKNOWN = (id: string): Player => ({ id, username: 'Unknown skater', avatarTone: 'white' });
 
 /** The viewer and their accepted friends, with lookup by id. */
 export function usePlayers(): QueryState<PlayerDirectory> {

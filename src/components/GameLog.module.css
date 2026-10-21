@@ -1,0 +1,61 @@
+.log {
+  display: grid;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 48px;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+
+.item:last-child {
+  border-bottom: 0;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  color: var(--text-muted);
+}
+
+.text {
+  min-width: 0;
+}
+
+.landed .text::before,
+.missed .text::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 8px;
+  border-radius: 50%;
+  vertical-align: 1px;
+}
+
+.landed .text::before {
+  background: var(--volt);
+}
+
+.missed .text {
+  color: var(--text-muted);
+}
+
+.missed .text::before {
+  background: var(--coral);
+}
+
+.time {
+  font-size: 12px;
+  color: var(--text-faint);
+  white-space: nowrap;
+}
